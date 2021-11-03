@@ -78,16 +78,16 @@ fn xor_through_data_set_and_train(){
 
 #[test]
 fn binding(){
-    let allowed_error = 0.08; // Max allowed error is 8%
+    // let allowed_error = 0.08; // Max allowed error is 8%
     let mut nn = FeedForward::new(&[6, 4, 4, 2, 1]);
 
-    println!("{}", nn);
+    // println!("{}", nn);
 
     nn.unbind(1, 0);
-    println!("{}", nn);
+    // println!("{}", nn);
 
     nn.bind(1, 0);
-    println!("{}", nn);
+    // println!("{}", nn);
 }
 
 #[test]

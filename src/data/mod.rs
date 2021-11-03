@@ -117,7 +117,7 @@ impl DataSet {
     ///     println!("{:?}", data);
     /// }
     /// ```
-    pub fn from_csv(file_path: &str) -> Result<DataSet, Box<std::error::Error>> {
+    pub fn from_csv(file_path: &str) -> Result<DataSet, Box<dyn std::error::Error>> {
         let mut file = csv::ReaderBuilder::new()
             .has_headers(false)
             .from_path(file_path)?;
@@ -319,7 +319,7 @@ impl DataSet {
 
     /// Don't use this method. It is only for me and will be deleted
     /// as soon as possible
-    pub fn cv(&self, nn: &mut FeedForward) -> f64 {
+    pub fn cv<const LAYER_COUNT: usize>(&self, nn: &mut FeedForward<LAYER_COUNT>) -> f64 {
         let mut error: Vec<f64> = vec![0.0; self.y[0].len()];
 
         for i in 0..self.ty.len(){
@@ -332,7 +332,7 @@ impl DataSet {
 
         let len = self.ty.len() as f64;
 
-        error.iter().map(|x| x / len).collect::<Vec<f64>>();
+        // error.iter().map(|x| x / len).collect::<Vec<f64>>();
         error.iter().sum::<f64>() / len
     }
 }
